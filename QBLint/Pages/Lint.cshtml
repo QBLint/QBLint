@@ -1,0 +1,8 @@
+﻿@page
+@model QBLint.Pages.LintModel
+@{
+    Layout = "";
+    string UnlintedCode = HttpContext.Request.Query["code"];
+    string LintedCode = Model.Lint(UnlintedCode);
+}
+@LintedCode

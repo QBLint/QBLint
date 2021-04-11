@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "QBLintLinter": {
+      "commandName": "Project",
+      "commandLineArgs": "\"Print !@#$hello World QBLintLineSeparator '\""
+    }
+  }
+}

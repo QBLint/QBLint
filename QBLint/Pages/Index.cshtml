@@ -1,0 +1,24 @@
+﻿@page
+@model IndexModel
+
+<div style="text-align: center">
+    <h1>QBLint</h1>
+    <br />
+    <h4>Input</h4>
+    <pre>
+    <code class="language-basic" id="input" contenteditable>PrInT "Hello, World!</code>
+    </pre>
+    <br />
+    <button type="button" class="btn btn-secondary" onclick="lint()">Lint</button>
+    <br />
+    <br />
+    <h4>Linted Code</h4>
+    <pre>
+    <code class="language-basic" id="output">PRINT "Hello, World!"</code>
+    </pre>
+    <br />
+    <h4>Issues</h4>
+    <pre>
+    <code id="issues" class="language-basic">0 Warnings and 0 Errors</code>
+    </pre>
+</div>

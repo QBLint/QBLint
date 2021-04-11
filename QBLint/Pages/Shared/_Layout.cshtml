@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QBLint</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/prism/prism.min.css" />
+    <script src="~/lib/prism/prism.min.js"></script>
+    <script src="~/lib/filesaver/FileSaver.min.js"></script>
+    <script>
+        Prism.plugins.toolbar.registerButton('download', {
+            text: 'Download as .bas',
+            onClick: function (env) {
+                var blob = new Blob([$("#input").get()[0].textContent.trim()], { type: "text/plain;charset=utf-8" });
+                saveAs(blob, "input.bas");
+            }
+        });
+        function highlight() {
+            var input = $("#input").get()[0];
+            input.textContent = input.textContent.trim();
+            input.innerHTML = input.textContent;
+            Prism.highlightElement(input);
+        }
+    </script>
+</head>
+<body>
+    <script>
+        document.onclick = highlight
+        function htmlDecode(input) {
+            var e = document.createElement('textarea');
+            e.innerHTML = input;
+            return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+        }
+
+        function lint() {
+            highlight();
+            var unlintedCode = $("#input").get()[0].textContent.trim();
+            console.log(unlintedCode);
+            unlintedCode = unlintedCode.replaceAll("\r\n", "QBLintLineSeparator");
+            unlintedCode = unlintedCode.replaceAll("\n", "QBLintLineSeparator");
+            var lintedCode = "";
+            var result = "";
+            $.ajax({
+                async: false,
+                type: 'GET',
+                url: '/Lint?code=' + unlintedCode,
+                success: function (response) {
+                    result = response;
+                }
+            });
+            result = htmlDecode(result);
+            result = result.replaceAll("'TEMP", "");
+            var issues = result.split("QBLintFieldSeparator")[1].trim();
+            lintedCode = result.split("QBLintFieldSeparator")[0].trim();
+            if (issues.includes("Syntax")) { lintedCode = "Please fix all errors first" }
+            var outputElement = $("#output").get()[0];
+            var issuesElement = $("#issues").get()[0];
+            outputElement.innerHTML = lintedCode;
+            issuesElement.innerHTML = issues;
+            Prism.highlightElement(outputElement);
+            Prism.highlightElement(issuesElement); // After all, why not? Why shouldn't I highlight it?
+
+        }
+    </script>
+
+    <br />
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
