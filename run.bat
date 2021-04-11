@@ -6,3 +6,4 @@ dotnet build --configuration Release
 cd ..\QBLint
 setx /M QBLINTER %CD%\QBLintLinter\bin\Release\net5.0-windows\
 dotnet run
+start "" localhost:5001
