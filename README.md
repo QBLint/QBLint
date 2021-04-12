@@ -10,6 +10,12 @@
 
 QBLint is currently only supported on Windows.
 
+## Requirements
+
+- .NET 5.0
+- Windows (preferably 10)
+- QB64 (preferably 1.5, and add it to PATH for the Formatter and Linter to work)
+
 ## Running and Building
 
 Just double click run.bat and it'll automatically build QBLintLinter and start QBLint.
