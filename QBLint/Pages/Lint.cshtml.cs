@@ -12,6 +12,10 @@ namespace QBLint.Pages
             string LintedCode = "";
             string QBLintLinterPath = Environment.GetEnvironmentVariable("QBLINTER", EnvironmentVariableTarget.Machine);
             string QBLintFolder = Path.GetTempPath() + "QBLint\\";
+            if (!Directory.Exists(QBLintFolder)) {
+                Directory.CreateDirectory(QBLintFolder);
+                Directory.CreateDirectory(QBLintFolder + "TempBAS\\");
+            }
             UnlintedCode += "QBLintLineSeparator'TEMP";
             IOFile.WriteAllText(QBLintFolder + "input.txt", UnlintedCode);
             string _ = QBLintLinterPath + "QBLintLinter.exe";
