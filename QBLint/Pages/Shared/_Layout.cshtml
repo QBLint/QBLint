@@ -36,6 +36,7 @@
 
         function lint() {
             highlight();
+            var capitalize = $("#capitalize").get()[0].checked;
             var unlintedCode = $("#input").get()[0].textContent.trim();
             console.log(unlintedCode);
             unlintedCode = unlintedCode.replaceAll("\r\n", "QBLintLineSeparator");
@@ -45,7 +46,7 @@
             $.ajax({
                 async: false,
                 type: 'GET',
-                url: '/Lint?code=' + unlintedCode,
+                url: '/Lint?code=' + unlintedCode + '&capitalize=' + capitalize,
                 success: function (response) {
                     result = response;
                 }
@@ -61,7 +62,6 @@
             issuesElement.innerHTML = issues;
             Prism.highlightElement(outputElement);
             Prism.highlightElement(issuesElement); // After all, why not? Why shouldn't I highlight it?
-
         }
     </script>
 

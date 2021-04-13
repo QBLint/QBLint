@@ -3,6 +3,7 @@
 @{
     Layout = "";
     string UnlintedCode = HttpContext.Request.Query["code"];
-    string LintedCode = Model.Lint(UnlintedCode);
+    string Capitalize = HttpContext.Request.Query["capitalize"];
+    string LintedCode = Model.Lint(UnlintedCode, Capitalize);
 }
 @LintedCode
