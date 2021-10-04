@@ -1,6 +1,5 @@
 <div align="center">  
 <h1>QBLint</h1>
-<a href="https://twitter.com/icoooode"><img src="https://img.shields.io/twitter/follow/icoooode?style=flat&logo=twitter&color=blue"></a>
 <a href="#Donating"><img src="readme/donate.svg"></a>
 </div>
 
